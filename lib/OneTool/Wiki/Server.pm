@@ -21,6 +21,7 @@ use OneTool::Wiki::Server::API qw( %server_api );
 use OneTool::Wiki::Server::Page;
 
 my $FILE_LOG = "$FindBin::Bin/../conf/onetool_wiki_server.log.conf";
+our $VERSION = $OneTool::VERSION . '.1';
 
 =head1 MOOSE OBJECT
 
@@ -94,7 +95,7 @@ Returns Server version
 
 sub Version
 {
-    return ({ status => 'ok', data => { Version => $OneTool::VERSION } });
+    return ({ status => 'ok', data => { Version => $VERSION } });
 }
 
 no Moose;

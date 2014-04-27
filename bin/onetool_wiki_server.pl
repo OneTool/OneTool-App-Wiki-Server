@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-onetool_wiki_server - Wiki Program from the OneTool Suite
+onetool_wiki_server.pl - Wiki Program from the OneTool Suite
 
 =cut
 
@@ -13,9 +13,9 @@ use FindBin;
 
 use lib "$FindBin::Bin/../lib/";
 
-use OneTool::Wiki::Server::App;
+use OneTool::Wiki::Server::Command;
 
-ITTool::Wiki::Server::App->run(@ARGV);
+OneTool::Wiki::Server::Command->run(@ARGV);
 
 =head1 AUTHOR
 

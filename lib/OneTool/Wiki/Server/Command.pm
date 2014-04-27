@@ -1,7 +1,8 @@
+package OneTool::Wiki::Server::Command;
 
 =head1 NAME
 
-OneTool::Wiki::Server::App - Module handling everything for onetool_wiki_server.pl
+OneTool::Wiki::Server::Command - Module handling everything for onetool_wiki_server.pl
 
 =head1 DESCRIPTION
 
@@ -15,15 +16,21 @@ onetool_wiki_server.pl [options]
 
 =over 8
 
+=item B<-D,--debug>
+
+Sets Debug mode
+
 =item B<-h,--help>
 
 Prints this Help
 
+=item B<-v,--version>
+
+Prints version
+
 =back
 
 =cut
-
-package OneTool::Wiki::Server::App;
 
 use strict;
 use warnings;
@@ -40,15 +47,17 @@ use OneTool::Wiki::Server;
 
 __PACKAGE__->run(@ARGV) unless caller;
 
+my $PROGRAM = 'onetool_wiki_server.pl';
+
 =head1 SUBROUTINES/METHODS
 
-=head2 Daemon()
+=head2 Daemon_Start()
 
 Launch OneTool Wiki Server as Daemon
 
 =cut
 
-sub Daemon
+sub Daemon_Start
 {
     my $server = OneTool::Wiki::Server->new();
 
@@ -85,6 +94,8 @@ sub Daemon
 
 =head2 run(@ARGV)
 
+Runs Command Line
+
 =cut
 
 sub run
@@ -93,8 +104,6 @@ sub run
     my %opt  = ();
 
     local @ARGV = @_;
-    
-    printf "%s\n", join(',', @ARGV);
     my @options = @OneTool::App::DEFAULT_OPTIONS;
     push @options, 'start', 'stop';
     my $status = GetOptions(\%opt, @options);
@@ -106,10 +115,10 @@ sub run
         
     if ($opt{version})
     {
-        printf "OneTool v%s\n", $OneTool::VERSION;
+        printf "%s v%s\n", $PROGRAM, $OneTool::Wiki::Server::VERSION;
     }
 
-    Daemon() if ($opt{start});
+    Daemon_Start() if ($opt{start});
     
     return ($status);
 }
